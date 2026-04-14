@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import ast
 
 # Load dataset
 df = pd.read_csv("data/Food Ingredients and Recipe Dataset with Image Name Mapping.csv")
@@ -12,6 +13,23 @@ df['combined'] = df['Ingredients'].fillna('')
 # Convert text → vectors
 vectorizer = TfidfVectorizer(stop_words='english')
 tfidf_matrix = vectorizer.fit_transform(df['combined'])
+
+from utils.nutrition_engine import analyze_nutrition, classify_diet
+
+def format_text_list(text, is_bullet=False):
+    if not isinstance(text, str):
+        return ""
+    text = text.strip()
+    if text.startswith('[') and text.endswith(']'):
+        try:
+            items = ast.literal_eval(text)
+            if is_bullet:
+                return "\n".join([f"• {str(item).strip()}" for item in items])
+            else:
+                return "\n".join([f"{i+1}. {str(item).strip()}" for i, item in enumerate(items)])
+        except:
+            pass
+    return text.replace(".,", ".\n").replace("', '", "'\n'")
 
 def find_best_recipes(user_input, top_n=3):
     user_ingredients = user_input.split(",")
@@ -35,11 +53,21 @@ def find_best_recipes(user_input, top_n=3):
 
     for idx in top_indices:
         recipe = df.iloc[idx]
-        print(recipe)
+        ingreds = recipe.get("Ingredients", "")
+        formatted_ingreds = format_text_list(ingreds, is_bullet=True)
+        
+        instructions = recipe.get("Instructions", "")
+        formatted_instructions = format_text_list(instructions, is_bullet=False)
+        
+        nutri, allergens = analyze_nutrition(ingreds)
+        diet = classify_diet(ingreds)
         results.append({
             "title": recipe.get("Title", "Recipe"),
-            "ingredients": recipe.get("Ingredients", ""),
-            "instructions": recipe.get("Instructions", "")
+            "ingredients": formatted_ingreds,
+            "instructions": formatted_instructions,
+            "nutrition": nutri,
+            "allergens": allergens,
+            "diet": diet
         })
 
     return results
