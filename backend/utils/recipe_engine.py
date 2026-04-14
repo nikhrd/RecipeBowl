@@ -3,10 +3,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Load dataset
-df = pd.read_csv("data\Food Ingredients and Recipe Dataset with Image Name Mapping.csv")
-
-print(df.columns)
-
+df = pd.read_csv("data/Food Ingredients and Recipe Dataset with Image Name Mapping.csv")
+print("Columns:", df.columns)
+df.columns = df.columns.str.strip()
 # Combine ingredients into one string (adjust column name if needed)
 df['combined'] = df['Ingredients'].fillna('')
 
@@ -36,7 +35,7 @@ def find_best_recipes(user_input, top_n=3):
 
     for idx in top_indices:
         recipe = df.iloc[idx]
-
+        print(recipe)
         results.append({
             "title": recipe.get("Title", "Recipe"),
             "ingredients": recipe.get("Ingredients", ""),

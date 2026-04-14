@@ -1,4 +1,4 @@
-import requests
+'''import requests
 import os
 import time
 
@@ -44,4 +44,4 @@ def generate_recipe_ai(ingredients):
         except Exception as e:
             return f"EXCEPTION: {str(e)}"
 
-    return "Failed to generate recipe."
+    return "Failed to generate recipe."'''
