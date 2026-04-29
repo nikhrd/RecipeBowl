@@ -19,7 +19,7 @@ function Signup() {
             <div className="bg-white p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] w-96 border border-gray-100 flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500"></div>
                 <div className="text-center mb-8">
-                    <span className="text-4xl">🍲</span>
+                    <span className="text-4xl"></span>
                     <h2 className="text-3xl font-extrabold mt-4 text-gray-900 tracking-tight">Create Account</h2>
                     <p className="text-gray-500 mt-2 text-sm font-medium">Join RecipeBowl to start cooking</p>
                 </div>

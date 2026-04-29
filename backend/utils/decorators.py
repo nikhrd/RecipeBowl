@@ -6,7 +6,7 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
 
-        # ✅ Allow preflight request WITHOUT token
+        #  Allow preflight request WITHOUT token
         if request.method == "OPTIONS":
             return jsonify({"message": "OK"}), 200
 
