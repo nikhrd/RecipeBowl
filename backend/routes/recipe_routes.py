@@ -19,11 +19,12 @@ def init_recipe_routes(db):
             return jsonify({"error": "No data received"}), 400
 
         ingredients = data.get("ingredients")
+        cuisine = data.get("cuisine", "")
         print("Ingredients:", ingredients)
         if not ingredients:
             return jsonify({"error": "Ingredients missing"}), 400
 
-        results = find_best_recipes(ingredients)
+        results = find_best_recipes(ingredients, cuisine)
         return jsonify({
             "recipes": results
         })
@@ -35,6 +36,7 @@ def init_recipe_routes(db):
             return jsonify({"error": "No image uploaded"}), 400
 
         image = request.files['image']
+        cuisine = request.form.get("cuisine", "")
         print("FILES:", request.files)
         filepath = os.path.join("uploads", image.filename)
         os.makedirs("uploads", exist_ok=True)
@@ -48,7 +50,7 @@ def init_recipe_routes(db):
         ingredients_str = ", ".join(ingredients)
 
     # Use existing engine
-        recipes = find_best_recipes(ingredients_str)
+        recipes = find_best_recipes(ingredients_str, cuisine)
 
         return jsonify({
             "detected": ingredients,

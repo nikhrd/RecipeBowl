@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 
 function Dashboard() {
     const [ingredients, setIngredients] = useState("");
+    const [cuisine, setCuisine] = useState("");
     const [recipes, setRecipes] = useState([]);
     const [image, setImage] = useState(null);
 
@@ -17,7 +18,7 @@ function Dashboard() {
         try {
             const res = await API.post(
                 "/recipe/generate",
-                { ingredients: ingredients },
+                { ingredients: ingredients, cuisine: cuisine },
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -40,6 +41,7 @@ function Dashboard() {
 
         const formData = new FormData();
         formData.append("image", image);
+        if (cuisine) formData.append("cuisine", cuisine);
 
         try {
             const res = await API.post("/recipe/generate-from-image", formData, {
@@ -74,6 +76,19 @@ function Dashboard() {
                     </h2>
                     <p className="text-gray-500 text-lg">Turn your ingredients or photos into delicious meals</p>
                 </header>
+
+                <div className="max-w-lg mx-auto mb-10">
+                    <label className="block text-gray-700 text-sm font-bold mb-2 text-center uppercase tracking-wider">
+                        Preferred Cuisine (Optional)
+                    </label>
+                    <input 
+                        type="text" 
+                        className="w-full bg-white border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all font-medium shadow-sm text-center"
+                        placeholder="e.g. Italian, Mexican, Indian, Chinese..."
+                        value={cuisine}
+                        onChange={(e) => setCuisine(e.target.value)}
+                    />
+                </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
                     {/* Text Generation Card */}
