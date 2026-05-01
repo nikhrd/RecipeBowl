@@ -1,0 +1,9 @@
+Flask 
+Flask-cors 
+torch 
+torchvision 
+transformers 
+Pillow 
+python-dotenv
+PyJWT 
+bcrypt

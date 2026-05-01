@@ -47,7 +47,7 @@ function SavedRecipes() {
                     <div className="text-center text-gray-500 mt-20">Loading your saved recipes...</div>
                 ) : recipes.length === 0 ? (
                     <div className="text-center text-gray-500 mt-20 bg-white p-10 rounded-2xl shadow-sm border border-gray-100">
-                        <span className="text-4xl block mb-4">🍽️</span>
+                        <span className="text-4xl block mb-4"></span>
                         <h3 className="text-xl font-bold text-gray-800 mb-2">No saved recipes yet</h3>
                         <p>Generate some recipes and save them to see them here.</p>
                     </div>

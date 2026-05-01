@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from flask import request
 import os
-
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
 from routes.auth_routes import init_auth_routes
 from routes.recipe_routes import init_recipe_routes
 

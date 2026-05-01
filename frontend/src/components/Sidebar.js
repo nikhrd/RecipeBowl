@@ -8,7 +8,7 @@ function Sidebar() {
             <div className="p-6 pb-2 border-b border-gray-100/50 mb-4 h-20 flex items-center gap-3">
                 <span className="text-3xl drop-shadow-sm"></span>
                 <h2 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500 tracking-tight">
-                    RecipeBowl
+                    GusteauGo
                 </h2>
             </div>
 
